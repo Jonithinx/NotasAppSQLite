@@ -27,7 +27,6 @@ NotasAppSQLite/
 │   ├── HistorialPage.xaml       # Registro cronológico de actividades
 │   └── HistorialPage.xaml.cs
 ├── Resources/                   # Fuentes, imágenes, splash screen e iconos
-├── docs/                        # Capturas y documentación gráfica
 ├── AppShell.xaml                # Configuración de Shell y TabBar
 ├── AppShell.xaml.cs             # Registro de rutas de navegación
 ├── MauiProgram.cs               # Configuración del host e Inyección de Dependencias (DI)
@@ -123,22 +122,7 @@ erDiagram
 
 ---
 
-## 🖼️ 4. Capturas de Pantalla
-
-A continuación se presentan las interfaces principales de la aplicación:
-
-### Lista de Notas y Búsqueda
-![Notas](docs/captura_notas.png)
-
-### Creación y Edición de Nota (Validación)
-![Detalle](docs/captura_detalle.png)
-
-### Bitácora de Historial
-![Historial](docs/captura_historial.png)
-
----
-
-## 🚀 5. Compilación y Ejecución
+## 🚀 4. Compilación y Ejecución
 
 ### Requisitos previos:
 - .NET 10 SDK
