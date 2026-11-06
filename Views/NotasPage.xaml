@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:NotasAppSQLite.Models"
+             xmlns:vm="clr-namespace:NotasAppSQLite.ViewModels"
+             x:Class="NotasAppSQLite.Views.NotasPage"
+             x:DataType="vm:NotasViewModel"
+             Title="Mis Notas">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nueva"
+                     Command="{Binding CrearNotaCommand}"
+                     Priority="0"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto, *" Margin="16">
+        <!-- Barra de Búsqueda -->
+        <SearchBar Grid.Row="0"
+                   Placeholder="Buscar notas por título..."
+                   Text="{Binding TextoBusqueda, Mode=TwoWay}"
+                   SearchCommand="{Binding BuscarCommand}"
+                   Margin="0,0,0,12" />
+
+        <!-- Lista de Notas -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Notas}"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12"
+                                     Margin="20">
+                    <Label Text="📝"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
+                    <Label Text="No hay notas disponibles"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+                    <Label Text="Presiona '+ Nueva Nota' para crear tu primera nota."
+                           FontSize="14"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Nota">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Editar"
+                                           BackgroundColor="#2196F3"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EditarNotaCommand}"
+                                           CommandParameter="{Binding .}" />
+                                <SwipeItem Text="Eliminar"
+                                           BackgroundColor="#F44336"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border StrokeShape="RoundRectangle 12"
+                                Stroke="#E0E0E0"
+                                StrokeThickness="1"
+                                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
+                                Padding="16"
+                                Margin="0,6">
+                            <Grid RowDefinitions="Auto, Auto, Auto"
+                                  ColumnDefinitions="*, Auto"
+                                  RowSpacing="8">
+
+                                <!-- Título -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Titulo}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       LineBreakMode="TailTruncation"
+                                       VerticalOptions="Center" />
+
+                                <!-- Botones de acción directos -->
+                                <HorizontalStackLayout Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Spacing="8"
+                                                       VerticalOptions="Center">
+                                    <Button Text="✏️"
+                                            ToolTipProperties.Text="Editar nota"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EditarNotaCommand}"
+                                            CommandParameter="{Binding .}"
+                                            HeightRequest="36"
+                                            WidthRequest="42"
+                                            Padding="0"
+                                            CornerRadius="8"
+                                            BackgroundColor="#E3F2FD"
+                                            TextColor="#1976D2" />
+                                    <Button Text="🗑️"
+                                            ToolTipProperties.Text="Eliminar nota"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
+                                            CommandParameter="{Binding .}"
+                                            HeightRequest="36"
+                                            WidthRequest="42"
+                                            Padding="0"
+                                            CornerRadius="8"
+                                            BackgroundColor="#FFEBEE"
+                                            TextColor="#D32F2F" />
+                                </HorizontalStackLayout>
+
+                                <!-- Contenido Previo -->
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding Contenido}"
+                                       FontSize="14"
+                                       TextColor="{AppThemeBinding Light=#616161, Dark=#BDBDBD}"
+                                       MaxLines="2"
+                                       LineBreakMode="TailTruncation" />
+
+                                <!-- Fecha de Modificación -->
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding FechaModificacion, StringFormat='Modificado: {0:dd/MM/yyyy HH:mm}'}"
+                                       FontSize="11"
+                                       TextColor="#9E9E9E" />
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Botón flotante para crear nota -->
+        <Button Grid.Row="1"
+                Text="➕ Nueva Nota"
+                Command="{Binding CrearNotaCommand}"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="16"
+                CornerRadius="25"
+                HeightRequest="50"
+                Padding="20,0"
+                FontAttributes="Bold"
+                BackgroundColor="#512BD4"
+                TextColor="White"
+                Shadow="{Shadow Brush=Black, Offset='0,4', Radius=8, Opacity=0.25}" />
+    </Grid>
+</ContentPage>

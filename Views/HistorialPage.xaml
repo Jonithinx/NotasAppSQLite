@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:NotasAppSQLite.Models"
+             xmlns:vm="clr-namespace:NotasAppSQLite.ViewModels"
+             x:Class="NotasAppSQLite.Views.HistorialPage"
+             x:DataType="vm:HistorialViewModel"
+             Title="Registro de Actividades">
+
+    <Grid RowDefinitions="*" Margin="16">
+        <CollectionView ItemsSource="{Binding ListaHistorial}"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12"
+                                     Margin="20">
+                    <Label Text="📋"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
+                    <Label Text="No hay registros en el historial"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+                    <Label Text="Las operaciones de creación, edición y eliminación aparecerán aquí."
+                           FontSize="14"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Historial">
+                    <Border StrokeShape="RoundRectangle 10"
+                            Stroke="#E0E0E0"
+                            StrokeThickness="1"
+                            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
+                            Padding="14"
+                            Margin="0,5">
+                        <Grid RowDefinitions="Auto, Auto"
+                              ColumnDefinitions="Auto, *">
+                            
+                            <!-- Indicador / Icono de la acción -->
+                            <Border Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 8"
+                                    BackgroundColor="#EDE7F6"
+                                    Padding="10"
+                                    Margin="0,0,12,0"
+                                    VerticalOptions="Center">
+                                <Label Text="📌"
+                                       FontSize="16" />
+                            </Border>
+
+                            <!-- Acción y Detalle -->
+                            <HorizontalStackLayout Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Spacing="8"
+                                                   VerticalOptions="Center">
+                                <Label Text="{Binding Accion}"
+                                       FontAttributes="Bold"
+                                       FontSize="15"
+                                       TextColor="#512BD4" />
+                                <Label Text="-"
+                                       FontSize="15"
+                                       TextColor="Gray" />
+                                <Label Text="{Binding Detalle}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       LineBreakMode="TailTruncation" />
+                            </HorizontalStackLayout>
+
+                            <!-- Fecha y Hora formateada -->
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding FechaHora, StringFormat='Fecha y Hora: {0:dd/MM/yyyy HH:mm:ss}'}"
+                                   FontSize="12"
+                                   TextColor="#757575"
+                                   Margin="0,4,0,0" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

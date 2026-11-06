@@ -1,0 +1,40 @@
+## Visual Studio / .NET / .NET MAUI
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+.idea/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]uild/
+
+# SQLite databases generated at runtime
+*.db
+*.db-shm
+*.db-wal
+*.db3
+*.db3-shm
+*.db3-wal
+
+# Windows / OS junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
